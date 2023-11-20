@@ -8,12 +8,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.m391.cameratec.R
 import com.m391.cameratec.databinding.FragmentViewerBinding
 
 class ViewerFragment : Fragment() {
     private lateinit var binding: FragmentViewerBinding
-    private val viewModel: ViewerViewModel by viewModels()
+    private val args: ViewerFragmentArgs by navArgs()
+    private val viewModel: ViewerViewModel by viewModels {
+        ViewerViewModelFactory(args.imageUrl)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

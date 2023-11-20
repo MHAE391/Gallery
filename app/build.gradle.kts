@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
     id("kotlin-android")
+    id ("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -42,6 +43,7 @@ android {
 
 dependencies {
 
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     val navVersion = "2.7.5"
 
     implementation("androidx.core:core-ktx:1.12.0")

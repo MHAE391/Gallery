@@ -9,16 +9,18 @@
             type="com.m391.cameratec.ui.gallery.GalleryViewModel" />
     </data>
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.gallery.GalleryFragment">
 
-        <!-- TODO: Update blank fragment layout -->
-        <TextView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/images_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment" />
-
-    </FrameLayout>
+            android:layout_margin="5dp"
+            android:liveData="@{viewModel.images}"
+            android:padding="5dp"
+            android:scrollbars="none" />
+    </RelativeLayout>
 </layout>
