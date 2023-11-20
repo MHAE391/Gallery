@@ -8,7 +8,7 @@ fun <T> RecyclerView.setupGridRecycler(
     adapter: BaseRecyclerViewAdapter<T>
 ) {
     this.apply {
-        layoutManager = GridLayoutManager(this.context, 2)
+        layoutManager = GridLayoutManager(this.context, 3)
         this.adapter = adapter
     }
 }

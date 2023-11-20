@@ -1,17 +1,13 @@
 package com.m391.cameratec.ui.gallery
 
 import android.content.Context
-import android.net.Uri
 import android.provider.MediaStore
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.m391.cameratec.R
 import com.m391.cameratec.model.ImageModel
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class GalleryViewModel : ViewModel() {
@@ -41,15 +37,15 @@ class GalleryViewModel : ViewModel() {
             null
         )
 
-        cursor?.use { cursor ->
-            val idColumn = cursor.getColumnIndexOrThrow(MediaStore.Images.Media._ID)
-            val nameColumn = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DISPLAY_NAME)
-            val dataColumn = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+        cursor?.use { theCursor ->
+            val idColumn = theCursor.getColumnIndexOrThrow(MediaStore.Images.Media._ID)
+            val nameColumn = theCursor.getColumnIndexOrThrow(MediaStore.Images.Media.DISPLAY_NAME)
+            val dataColumn = theCursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
 
-            while (cursor.moveToNext()) {
-                val id = cursor.getLong(idColumn)
-                val name = cursor.getString(nameColumn)
-                val path = cursor.getString(dataColumn)
+            while (theCursor.moveToNext()) {
+                val id = theCursor.getLong(idColumn)
+                val name = theCursor.getString(nameColumn)
+                val path = theCursor.getString(dataColumn)
                 val image = ImageModel(id, name, path)
                 imagesData.add(image)
                 _images.postValue(imagesData)

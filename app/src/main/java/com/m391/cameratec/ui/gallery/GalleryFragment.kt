@@ -1,6 +1,8 @@
 package com.m391.cameratec.ui.gallery
 
+import android.Manifest
 import android.content.Context
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -9,6 +11,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -25,6 +29,15 @@ import kotlinx.coroutines.launch
 class GalleryFragment : Fragment() {
     private lateinit var binding: FragmentGalleryBinding
     private val viewModel: GalleryViewModel by viewModels()
+
+    private val requestPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            if (!isGranted) {
+                Toast.makeText(context, "You Have to Accept Camera Permission", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -52,7 +65,16 @@ class GalleryFragment : Fragment() {
                         it.uri
                     )
                 )
-            else findNavController().navigate(GalleryFragmentDirections.actionGalleryFragmentToCameraFragment())
+            else {
+                if (ContextCompat.checkSelfPermission(
+                        requireContext(),
+                        Manifest.permission.CAMERA
+                    ) != PackageManager.PERMISSION_GRANTED
+                )
+                    requestPermissionLauncher.launch(Manifest.permission.CAMERA)
+                else
+                    findNavController().navigate(GalleryFragmentDirections.actionGalleryFragmentToCameraFragment())
+            }
         }
         binding.imagesRecyclerView.setupGridRecycler(adapter)
     }

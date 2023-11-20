@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -9,16 +10,28 @@
             type="com.m391.cameratec.ui.camera.CameraViewModel" />
     </data>
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.camera.CameraFragment">
 
-        <!-- TODO: Update blank fragment layout -->
-        <TextView
+        <androidx.camera.view.PreviewView
+            android:id="@+id/viewFinder"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment" />
+            android:layout_height="match_parent" />
 
-    </FrameLayout>
+        <ImageButton
+            android:id="@+id/captureButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="16dp"
+            android:background="?attr/selectableItemBackground"
+            android:contentDescription="@string/common_google_play_services_unknown_issue"
+            android:scaleType="centerCrop"
+            android:src="@drawable/baseline_camera_24"
+            app:tint="@color/white" />
+
+    </RelativeLayout>
 </layout>
